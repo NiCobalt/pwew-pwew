@@ -55,10 +55,6 @@ function bullet_collision()
                     j--;
                     console.log("MORT");
                 }
-                scene.remove(player1.bullets[i]);
-                player1.bullets.splice(i, 1);
-                i--;
-                continue;
             }
         }
         if (Math.abs(player1.bullets[i].position.x) >= WIDTH / 2 ||
