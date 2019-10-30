@@ -25,10 +25,24 @@ function init()
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
     
-    player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
+    player1 = new Player("player1", 0xffff00, new THREE.Vector2(0, 0), 0);
+    enemies = new Array();
+    player2 = new Player("player2", 0xff0000, new THREE.Vector2(250, 0), 0);
+    player3 = new Player("player3", 0xff0000, new THREE.Vector2(0, -100), 0);
+    player4 = new Player("player4", 0xff0000, new THREE.Vector2(0, 100), 0);
+    player5 = new Player("player5", 0xff0000, new THREE.Vector2(-250, 0), 0);
+    enemies.push(player2);
+    enemies.push(player3);
+    enemies.push(player4);
+    enemies.push(player5);
+    //console.log(enemies);
     scene.add(player1.graphic);
+    scene.add(player2.graphic);
+    scene.add(player3.graphic);
+    scene.add(player4.graphic);
+    scene.add(player5.graphic);
 
-    light1 = new Light("sun", 0xffffff, "0,0,340");
+    light1 = new Light("sun", 0xffffff, "0,0,40");
     scene.add(light1);
 }
 
@@ -47,7 +61,10 @@ function Ground(color, size_x, size_y, nb_tile)
     for (x = minX; x <= maxX; x = x+sizeOfTileX){
         for (y = minY; y <= maxY; y = y+sizeOfTileY){
 
-            color = colors[Math.floor(Math.random()*colors.length)];
+            if (x == 0 && y == 0)
+                color = 0xff0000;
+            else
+                color = colors[Math.floor(Math.random()*colors.length)];
        
             if (0x000000 != color)
             {

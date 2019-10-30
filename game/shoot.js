@@ -44,6 +44,23 @@ function bullet_collision()
     //collision between bullet and walls
     for (var i = 0; i < player1.bullets.length; i++)
     {
+        for (var j = 0; j < enemies.length; j++)
+        {
+            enemy = enemies[j];
+            if ((player1.bullets[i].position.x - enemy.position.x) < 0.8 && (player1.bullets[i].position.y - enemy.position.y) < 0.8) {
+                enemy.life -= 1;
+                if (enemy.life == 0) {
+                    scene.remove(enemies[j].graphic);
+                    enemies.splice(j, 1);
+                    j--;
+                    console.log("MORT");
+                }
+                scene.remove(player1.bullets[i]);
+                player1.bullets.splice(i, 1);
+                i--;
+                continue;
+            }
+        }
         if (Math.abs(player1.bullets[i].position.x) >= WIDTH / 2 ||
             Math.abs(player1.bullets[i].position.y) >= HEIGHT / 2)
         {
@@ -63,6 +80,8 @@ function player_collision()
 
     if ( x > WIDTH )
         player1.graphic.position.x -= x - WIDTH;
+    if ( x < 0 )
+        player1.graphic.position.x -= x;
     if ( y < 0 )
         player1.graphic.position.y -= y;
     if ( y > HEIGHT )
@@ -93,7 +112,7 @@ function player_falling()
             && (y > tileY) 
             && (y < mtileY))
         {
-            player1.dead();
+            //player1.dead();
         }
     }
 
